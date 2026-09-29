@@ -25,15 +25,13 @@ function Admin() {
   }, []);
 
   const loadEvents = async () => {
-    const response = await fetch("http://localhost:5000/api/events");
+    const response = await fetch("/api/events");
     const data = await response.json();
     setEvents(data);
   };
 
   const loadRegistrations = async () => {
-    const response = await fetch(
-      "http://localhost:5000/api/registrations"
-    );
+    const response = await fetch("/api/registrations");
     const data = await response.json();
     setRegistrations(data);
   };
@@ -49,8 +47,8 @@ function Admin() {
     e.preventDefault();
 
     const url = editingId
-      ? `http://localhost:5000/api/events/${editingId}`
-      : "http://localhost:5000/api/events";
+      ? `/api/events/${editingId}`
+      : "/api/events";
 
     const method = editingId ? "PUT" : "POST";
 
@@ -88,7 +86,7 @@ function Admin() {
 
     if (!confirmDelete) return;
 
-    await fetch(`http://localhost:5000/api/events/${id}`, {
+    await fetch(`/api/events/${id}`, {
       method: "DELETE",
     });
 
@@ -349,3 +347,4 @@ function Admin() {
 }
 
 export default Admin;
+
