@@ -1,0 +1,52 @@
+{
+  "events": [
+    {
+      "id": "1",
+      "name": "CodeFest 2026",
+      "category": "Technical",
+      "date": "2026-10-10",
+      "time": "10:00 AM",
+      "venue": "Main Auditorium",
+      "description": "A competitive coding and problem-solving event for students."
+    },
+    {
+      "id": "2",
+      "name": "InnovateX",
+      "category": "Innovation",
+      "date": "2026-10-15",
+      "time": "11:00 AM",
+      "venue": "Innovation Lab",
+      "description": "Showcase your innovative ideas and technology projects."
+    },
+    {
+      "id": "3",
+      "name": "Campus Cultural Night",
+      "category": "Cultural",
+      "date": "2026-10-20",
+      "time": "6:00 PM",
+      "venue": "College Ground",
+      "description": "An evening filled with music, dance and cultural performances."
+    },
+    {
+      "id": "1790619707856",
+      "name": " Hackathon 2026",
+      "category": "Technical",
+      "date": "2026-11-05",
+      "time": "10:00 AM",
+      "venue": "Seminar Hall",
+      "description": "Description: A college-wide hackathon for innovative student projects."
+    }
+  ],
+  "registrations": [
+    {
+      "id": "1790619562675",
+      "registeredAt": "2026-09-28T18:19:22.675Z",
+      "name": "Aprajita Mall",
+      "email": "aprajita45@gmail.com",
+      "collegeYear": "CSE / 2nd Year",
+      "phone": "9876543210",
+      "eventId": "1",
+      "eventName": "CodeFest 2026"
+    }
+  ]
+}
