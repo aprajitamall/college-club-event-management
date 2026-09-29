@@ -22,7 +22,7 @@ function RegistrationModal({ event, onClose }) {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/api/registrations",
+        "/api/registrations",
         {
           method: "POST",
           headers: {

@@ -9,7 +9,7 @@ function Events() {
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/events")
+    fetch("/api/events")
       .then((res) => res.json())
       .then((data) => setEvents(data))
       .catch((err) => console.error(err));
