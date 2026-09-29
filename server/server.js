@@ -13,18 +13,28 @@ const dbPath = path.join(__dirname, "data", "db.json");
 
 function readDB() {
   if (!fs.existsSync(dbPath)) {
-    return { events: [], registrations: [] };
+    return {
+      events: [],
+      registrations: [],
+    };
   }
 
   return JSON.parse(fs.readFileSync(dbPath, "utf-8"));
 }
 
 function writeDB(data) {
-  fs.writeFileSync(dbPath, JSON.stringify(data, null, 2));
+  fs.writeFileSync(
+    dbPath,
+    JSON.stringify(data, null, 2)
+  );
 }
 
-// Test route
-app.get("/", (req, res) => {
+/* =========================
+   API ROUTES
+========================= */
+
+// API test route
+app.get("/api", (req, res) => {
   res.json({
     message: "College Club Event Management API is running",
   });
@@ -60,7 +70,9 @@ app.put("/api/events/:id", (req, res) => {
   );
 
   if (index === -1) {
-    return res.status(404).json({ message: "Event not found" });
+    return res.status(404).json({
+      message: "Event not found",
+    });
   }
 
   db.events[index] = {
@@ -77,13 +89,25 @@ app.put("/api/events/:id", (req, res) => {
 app.delete("/api/events/:id", (req, res) => {
   const db = readDB();
 
+  const exists = db.events.some(
+    (event) => event.id === req.params.id
+  );
+
+  if (!exists) {
+    return res.status(404).json({
+      message: "Event not found",
+    });
+  }
+
   db.events = db.events.filter(
     (event) => event.id !== req.params.id
   );
 
   writeDB(db);
 
-  res.json({ message: "Event deleted successfully" });
+  res.json({
+    message: "Event deleted successfully",
+  });
 });
 
 // Get registrations
@@ -112,15 +136,57 @@ app.post("/api/registrations", (req, res) => {
 app.delete("/api/registrations/:id", (req, res) => {
   const db = readDB();
 
+  const exists = db.registrations.some(
+    (registration) =>
+      registration.id === req.params.id
+  );
+
+  if (!exists) {
+    return res.status(404).json({
+      message: "Registration not found",
+    });
+  }
+
   db.registrations = db.registrations.filter(
-    (registration) => registration.id !== req.params.id
+    (registration) =>
+      registration.id !== req.params.id
   );
 
   writeDB(db);
 
-  res.json({ message: "Registration deleted successfully" });
+  res.json({
+    message: "Registration deleted successfully",
+  });
 });
 
+/* =========================
+   PRODUCTION FRONTEND
+========================= */
+
+const clientPath = path.join(
+  __dirname,
+  "../client/dist"
+);
+
+app.use(express.static(clientPath));
+
+app.use((req, res, next) => {
+  if (
+    req.method === "GET" &&
+    !req.path.startsWith("/api")
+  ) {
+    res.sendFile(
+      path.join(clientPath, "index.html")
+    );
+  } else {
+    next();
+  }
+});
+
+
+
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(
+    `Server running on port ${PORT}`
+  );
 });
